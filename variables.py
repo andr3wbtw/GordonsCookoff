@@ -43,7 +43,13 @@ mouse = pygame.mouse.get_pos() # track mouse X and Y position
 mouseX = mouse[0]
 mouseY = mouse[1]
 
+start = (10, 10)
+end = start
+bulletSpeed = 2
+
 speed = 1
+
+ammo = 5
 
 goingUp = False
 goingDown = False

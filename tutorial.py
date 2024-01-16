@@ -1,6 +1,7 @@
 import pygame
 pygame.font.init()
 import variables
+import fishing
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, dx, dy, filename):
@@ -13,13 +14,17 @@ class Player(pygame.sprite.Sprite):
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
     def moveUp(self):
-        self.rect.y = self.rect.y - variables.speed
+        if(self.rect.y >= -50):
+            self.rect.y = self.rect.y - variables.speed
     def moveDown(self):
-        self.rect.y = self.rect.y + variables.speed
+        if(self.rect.y <= 625):
+            self.rect.y = self.rect.y + variables.speed
     def moveRight(self):
-        self.rect.x = self.rect.x + variables.speed
+        if(self.rect.x <= 1216):
+            self.rect.x = self.rect.x + variables.speed
     def moveLeft(self):
-        self.rect.x = self.rect.x - variables.speed
+        if(self.rect.x >= -17):
+            self.rect.x = self.rect.x - variables.speed
 
 class BeefWellington(pygame.sprite.Sprite):
     def __init__(self, dx, dy, filename):
@@ -101,6 +106,7 @@ def tutorial():
     
     # PLAYER BEEF COLLISION DETECTION
     if pygame.sprite.collide_rect(player, beef):
+        fishing.initFishing()
         variables.gameState = "fishing"
 
     # DRAW GRASS
