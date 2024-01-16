@@ -43,8 +43,7 @@ mouse = pygame.mouse.get_pos() # track mouse X and Y position
 mouseX = mouse[0]
 mouseY = mouse[1]
 
-xPos = 100
-yPos = 100
+speed = 1
 
 goingUp = False
 goingDown = False

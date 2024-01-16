@@ -6,6 +6,7 @@ from pygame.locals import*
 import menu
 import tutorial
 import variables
+import fishing
 
 def main():
     ### MAIN GAME LOOP ###
@@ -43,6 +44,9 @@ def main():
         pygame.display.flip()
         if variables.gameState == "tutorial":
             tutorial.tutorial()
+
+        if variables.gameState == "fishing":
+            fishing.fishing()
 
         variables.timer+= 1 # tick the timer
 
