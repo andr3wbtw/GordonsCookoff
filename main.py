@@ -19,24 +19,6 @@ def main():
 
         if variables.ev.type == pygame.QUIT:  # Window close button clicked?
             break                   #   ... leave game loop
-        '''if ev.type == pygame.KEYDOWN:
-            if ev.key == pygame.K_w:
-                variables.goingUp = True
-            elif ev.key == pygame.K_s:
-                variables.goingDown = True
-            elif ev.key == pygame.K_d:
-                variables.goingRight = True
-            elif (ev.key == pygame.K_a) and (variables.enviroPosX < 570):
-                variables.goingLeft = True
-        if ev.type == pygame.KEYUP:
-            if ev.key == pygame.K_w:
-                variables.goingUp = False; variables.animateNum = 0
-            elif ev.key == pygame.K_s: 
-                variables.goingDown = False; variables.animateNum = 0
-            elif ev.key == pygame.K_d:
-                variables.goingRight = False; variables.animateNum = 0
-            elif ev.key == pygame.K_a:
-                variables.goingLeft = False; variables.animateNum = 0'''
             
         if variables.gameState == "menu": # menu state
             menu.menu()

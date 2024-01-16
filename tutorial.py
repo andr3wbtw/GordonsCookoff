@@ -39,12 +39,15 @@ characterImage = pygame.image.load('images/character/idle/1.png')
 
 grassImage = pygame.image.load('images/grass.png')
 
+tree1 = pygame.image.load('images/Tree1.png')
+tree2 = pygame.image.load('images/Tree2.png')
+
 tutorialText = ["Welcome to my cookoff!", "Use WASD to move" "Good luck!"]
 tutorialText1 = variables.talkingFont.render("(Press space to continue..)", True, variables.white)
-tutorialText2 = variables.talkingFont.render("Welcome to my cookoff!", True, variables.white)
-tutorialText3 = variables.talkingFont.render("Use WASD to move.", True, variables.white)
-tutorialText4 = variables.talkingFont.render("I have three cooking challenges for you.", True, variables.white)
-tutorialText5 = variables.talkingFont.render("Collect my Beef Wellington to continue.", True, variables.white)
+tutorialText2 = variables.talkingFont.render("Welcome to my cookoff..", True, variables.white)
+tutorialText3 = variables.talkingFont.render("Use WASD to move..", True, variables.white)
+tutorialText4 = variables.talkingFont.render("I have three cooking challenges for you..", True, variables.white)
+tutorialText5 = variables.talkingFont.render("Collect my Beef Wellington to begin..", True, variables.white)
 tutorialText6 = variables.talkingFont.render("Don't disappoint me.", True, variables.white)
 
 player = Player(200, 200, 'images/character/idle/1.png')
@@ -57,7 +60,8 @@ def initTutorial():
 def tutorial():
     variables.screen.fill(variables.blue)
 
-    if(variables.goingUp == True): # MOVEMENT UPDATING
+    # MOVEMENT UPDATING
+    if(variables.goingUp == True):
         player.moveUp()
     if(variables.goingDown == True):
         player.moveDown()
@@ -66,14 +70,16 @@ def tutorial():
     if(variables.goingLeft == True):
         player.moveLeft()
 
-    if variables.ev.type == pygame.KEYUP: # SPACE DETECTION
+    # SPACE DETECTION
+    if variables.ev.type == pygame.KEYUP:
             if variables.ev.key == pygame.K_SPACE:
                 if(variables.tutorialText < 6):
                     variables.tutorialText += 1
                 elif(variables.tutorialText == 6):
                     variables.gordonTalking = False
 
-    if variables.ev.type == pygame.KEYDOWN: # MOVEMENT DETECTION (START)
+    # MOVEMENT DETECTION (START)
+    if variables.ev.type == pygame.KEYDOWN:
         if variables.ev.key == pygame.K_w:
             variables.goingUp = True
         elif variables.ev.key == pygame.K_s:
@@ -82,7 +88,8 @@ def tutorial():
             variables.goingRight = True
         elif (variables.ev.key == pygame.K_a):
             variables.goingLeft = True
-    if variables.ev.type == pygame.KEYUP: # MOVEMENT DETECTION (STOP)
+    # MOVEMENT DETECTION (STOP)
+    if variables.ev.type == pygame.KEYUP: 
         if variables.ev.key == pygame.K_w:
             variables.goingUp = False; 
         elif variables.ev.key == pygame.K_s: 
@@ -92,10 +99,12 @@ def tutorial():
         elif variables.ev.key == pygame.K_a:
             variables.goingLeft = False; 
     
-    if pygame.sprite.collide_rect(player, beef): # PLAYER BEEF COLLISION DETECTION
+    # PLAYER BEEF COLLISION DETECTION
+    if pygame.sprite.collide_rect(player, beef):
         variables.gameState = "fishing"
 
-    for y in range(0, variables.screenY, 16): # DRAW GRASS
+    # DRAW GRASS
+    for y in range(0, variables.screenY, 16):
         if(y >= 336):
             for x in range(0, variables.screenX, 16):
                 variables.screen.blit(grassImage, (x, y), (0, 144, 16, 16))
@@ -103,7 +112,12 @@ def tutorial():
             for x in range(0, variables.screenX, 16):
                 variables.screen.blit(grassImage, (x, y), (0, 128, 16, 16))
 
-    if(variables.gordonTalking == True): # GORDON TALKING SEQUENCE
+    # DRAW TREES
+    variables.screen.blit(tree1, (60,120)); variables.screen.blit(tree1, (500,230)); variables.screen.blit(tree1, (800,90)); variables.screen.blit(tree1, (1190,130))
+    variables.screen.blit(tree2, (300,400)); variables.screen.blit(tree2, (750,480)); variables.screen.blit(tree2, (1050,370))
+
+    # GORDON TALKING SEQUENCE
+    if(variables.gordonTalking == True):
         variables.screen.blit(gordonPixelImage, (-20, 490))
         if(variables.tutorialText == 1):
             variables.screen.blit(tutorialText1, (160, 600))
