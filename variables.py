@@ -49,6 +49,8 @@ bulletSpeed = 2
 
 speed = 1
 fishSpeed = 3
+fishShot = False
+talkStatus = "intro"
 
 ammo = 5
 

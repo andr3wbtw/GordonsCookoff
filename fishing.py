@@ -54,16 +54,22 @@ grassImage = pygame.image.load('images/grass.png')
 waterImage = pygame.image.load('images/water.png')
 
 ammoImage = pygame.image.load('images/ammo.png')
+tableImage = pygame.image.load('images/table.png')
 
 gordonPixelImage = pygame.image.load('images/gordPixels.png')
 gordonPixelImageRect = gordonPixelImage.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
 tutorialText1 = variables.talkingFont.render("Your first challenge is to make fish and chips..", True, variables.black)
 tutorialText2 = variables.talkingFont.render("I want you to catch a fresh fish from the ocean..", True, variables.black)
-tutorialText3 = variables.talkingFont.render("Use space to shoot your gun..", True, variables.black)
+tutorialText3 = variables.talkingFont.render("Left click to shoot your gun..", True, variables.black)
 tutorialText4 = variables.talkingFont.render("Be careful, you have limited bullets.", True, variables.black)
 
+tutorialText5 = variables.talkingFont.render("Great job catching the fish..", True, variables.black)
+tutorialText6 = variables.talkingFont.render("Now you have to cut the potatoes..", True, variables.black)
+tutorialText7 = variables.talkingFont.render("Click to cut the potatoes.", True, variables.black)
+
 player = Player(200, 490, 'images/character/idle/1.png')
+caughtFish = Fish(variables.screenX-100, 500, 'images/fish.png')
 
 # SHOOTING VARIABLES
 bulletList = []
@@ -73,6 +79,7 @@ def initFishing():
     variables.gordonTalking = True
     variables.tutorialText = 1
     variables.ammo = 5
+    variables.fishShot = False
     for i in range (0, 5, 1):
         randX = random.randint(0,variables.screenX)
         randY = random.randint(0, 460)
@@ -94,10 +101,18 @@ def fishing():
     # SPACE DETECTION
     if variables.ev.type == pygame.KEYUP:
             if variables.ev.key == pygame.K_SPACE:
-                if(variables.tutorialText < 4):
-                    variables.tutorialText += 1
-                elif(variables.tutorialText == 4):
-                    variables.gordonTalking = False
+                if(variables.talkStatus == "intro"):
+                    if(variables.tutorialText < 4):
+                        variables.tutorialText += 1
+                    elif(variables.tutorialText == 4):
+                        variables.gordonTalking = False
+                        variables.talkStatus = "potato"
+                elif(variables.talkStatus == "potato"):
+                    if(variables.tutorialText < 7):
+                        variables.tutorialText += 1
+                    elif(variables.tutorialText == 7):
+                        variables.gordonTalking = False
+                        variables.talkStatus = "intro"
 
     # MOVEMENT DETECTION (START)
     if variables.ev.type == pygame.KEYDOWN:
@@ -145,10 +160,15 @@ def fishing():
         bullet[1] += bullet[3]  # posY - speed
         if((bullet[0] < 0) or (bullet[0] > variables.screenX) or (bullet[1] < 0) or (bullet[1] > variables.screenY)):
             bulletList.remove(bullet)
+        # FISH-BULLET COLLISION DETECTION
         for fish in fishList:
             if pygame.Rect.collidepoint(fish.rect, bullet[0], bullet[1]):
                 bulletList.remove(bullet)
                 fishList.clear()
+                variables.fishShot = True
+                variables.gordonTalking = True
+                variables.talkStatus = "potato"
+                variables.tutorialText = 5
 
     # DRAW WATER AND GRASS
     for y in range(0, variables.screenY, 16):
@@ -162,14 +182,22 @@ def fishing():
     # GORDON TALKING SEQUENCE
     if(variables.gordonTalking == True):
         variables.screen.blit(gordonPixelImage, (-20, 490))
-        if(variables.tutorialText == 1):
-            variables.screen.blit(tutorialText1, (160, 600))
-        elif(variables.tutorialText == 2):
-            variables.screen.blit(tutorialText2, (160, 600))
-        elif(variables.tutorialText == 3):
-            variables.screen.blit(tutorialText3, (160, 600))
-        elif(variables.tutorialText == 4):
-            variables.screen.blit(tutorialText4, (160, 600))
+        if(variables.talkStatus == "intro"):
+            if(variables.tutorialText == 1):
+                variables.screen.blit(tutorialText1, (160, 600))
+            elif(variables.tutorialText == 2):
+                variables.screen.blit(tutorialText2, (160, 600))
+            elif(variables.tutorialText == 3):
+                variables.screen.blit(tutorialText3, (160, 600))
+            elif(variables.tutorialText == 4):
+                variables.screen.blit(tutorialText4, (160, 600))
+        elif(variables.talkStatus == "potato"):
+            if(variables.tutorialText == 5):
+                variables.screen.blit(tutorialText5, (160, 600))
+            elif(variables.tutorialText == 6):
+                variables.screen.blit(tutorialText6, (160, 600))
+            elif(variables.tutorialText == 7):
+                variables.screen.blit(tutorialText7, (160, 600))
     
     # DRAW BULLETS
     for pos_x, pos_y, speed_x, speed_y in bulletList:
@@ -201,5 +229,9 @@ def fishing():
             fish.moveRight()
         elif randNum == 4:
             fish.moveLeft()
+
+    if(variables.fishShot == True):
+        variables.screen.blit(tableImage, (variables.screenX-100, 495))
+        caughtFish.draw(variables.screen)
 
     player.draw(variables.screen)
