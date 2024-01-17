@@ -23,7 +23,6 @@ def main():
         if variables.gameState == "menu": # menu state
             menu.menu()
 
-        pygame.display.flip()
         if variables.gameState == "tutorial":
             tutorial.tutorial()
 

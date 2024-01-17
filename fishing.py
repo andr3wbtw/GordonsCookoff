@@ -2,6 +2,7 @@ import pygame
 pygame.font.init()
 import variables
 import math
+import random
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, dx, dy, filename):
@@ -20,11 +21,34 @@ class Player(pygame.sprite.Sprite):
         if(self.rect.y <= 625):
             self.rect.y = self.rect.y + variables.speed
     def moveRight(self):
-        if(self.rect.x <= 1216):
+        if(self.rect.x <= 1233):
             self.rect.x = self.rect.x + variables.speed
     def moveLeft(self):
-        if(self.rect.x >= -17):
+        if(self.rect.x >= -34):
             self.rect.x = self.rect.x - variables.speed
+
+class Fish(pygame.sprite.Sprite):
+    def __init__(self, dx, dy, filename):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = pygame.image.load(filename).convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = dx
+        self.rect.y = dy
+    def draw(self, screen):
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+    def moveUp(self):
+        if(self.rect.y >= 0):
+            self.rect.y = self.rect.y - variables.fishSpeed
+    def moveDown(self):
+        if(self.rect.y <= 418):
+            self.rect.y = self.rect.y + variables.fishSpeed
+    def moveRight(self):
+        if(self.rect.x <= 1233):
+            self.rect.x = self.rect.x + variables.fishSpeed
+    def moveLeft(self):
+        if(self.rect.x >= -34):
+            self.rect.x = self.rect.x - variables.fishSpeed 
 
 grassImage = pygame.image.load('images/grass.png')
 waterImage = pygame.image.load('images/water.png')
@@ -42,15 +66,17 @@ tutorialText4 = variables.talkingFont.render("Be careful, you have limited bulle
 player = Player(200, 490, 'images/character/idle/1.png')
 
 # SHOOTING VARIABLES
-variables.start = pygame.math.Vector2((player.rect.x, player.rect.y))
-variables.end = variables.start
-variables.bulletSpeed = variables.bulletSpeed
 bulletList = []
+fishList = []
 
 def initFishing():
     variables.gordonTalking = True
     variables.tutorialText = 1
     variables.ammo = 5
+    for i in range (0, 5, 1):
+        randX = random.randint(0,variables.screenX)
+        randY = random.randint(0, 460)
+        fishList.append(Fish(randX, randY, 'images/fish.png'))
 
 def fishing():
     variables.screen.fill(variables.blue)
@@ -96,7 +122,8 @@ def fishing():
 
     # MOUSE SHOOT 
     if variables.ev.type == pygame.MOUSEBUTTONDOWN:
-        if(variables.ammo > 0):
+        if(variables.ammo > 0) and (pygame.mouse.get_pressed()[0]):
+            variables.gordonTalking = False
             variables.ammo -= 1
 
             mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -118,6 +145,10 @@ def fishing():
         bullet[1] += bullet[3]  # posY - speed
         if((bullet[0] < 0) or (bullet[0] > variables.screenX) or (bullet[1] < 0) or (bullet[1] > variables.screenY)):
             bulletList.remove(bullet)
+        for fish in fishList:
+            if pygame.Rect.collidepoint(fish.rect, bullet[0], bullet[1]):
+                bulletList.remove(bullet)
+                fishList.clear()
 
     # DRAW WATER AND GRASS
     for y in range(0, variables.screenY, 16):
@@ -158,6 +189,17 @@ def fishing():
                     if(variables.ammo > 4):
                         variables.screen.blit(ammoImage, (130, 10))
 
-    player.draw(variables.screen)
+    # DRAW FISH & UPDATE FISH POSITION
+    for fish in fishList:
+        fish.draw(variables.screen)
+        randNum = random.randint(0,4)
+        if randNum == 1:
+            fish.moveUp()
+        elif randNum == 2:
+            fish.moveDown()
+        elif randNum == 3:
+            fish.moveRight()
+        elif randNum == 4:
+            fish.moveLeft()
 
-    print(bulletList)
+    player.draw(variables.screen)
