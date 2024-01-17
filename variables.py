@@ -53,6 +53,9 @@ fishShot = False
 talkStatus = "intro"
 
 potatoCollected = False
+potatoTimerBegin = 0
+potatoTimerEnd = 0
+potatoTimer = 5
 
 ammo = 5
 

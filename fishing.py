@@ -83,6 +83,19 @@ tutorialText5 = variables.talkingFont.render("Great job catching the fish..", Tr
 tutorialText6 = variables.talkingFont.render("Now you have to cut the potatoes..", True, variables.black)
 tutorialText7 = variables.talkingFont.render("Click to cut the potatoes.", True, variables.black)
 
+timer5 = variables.tastyBoldFont.render("5", True, variables.black)
+timer5Rect = timer5.get_rect(center=(variables.screenX/2, variables.screenY/2))
+timer4 = variables.tastyBoldFont.render("4", True, variables.black)
+timer4Rect = timer4.get_rect(center=(variables.screenX/2, variables.screenY/2))
+timer3 = variables.tastyBoldFont.render("3", True, variables.black)
+timer3Rect = timer3.get_rect(center=(variables.screenX/2, variables.screenY/2))
+timer2 = variables.tastyBoldFont.render("2", True, variables.black)
+timer2Rect = timer2.get_rect(center=(variables.screenX/2, variables.screenY/2))
+timer1 = variables.tastyBoldFont.render("1", True, variables.black)
+timer1Rect = timer1.get_rect(center=(variables.screenX/2, variables.screenY/2))
+timer0 = variables.tastyBoldFont.render("0", True, variables.black)
+timer0Rect = timer0.get_rect(center=(variables.screenX/2, variables.screenY/2))
+
 player = Player(200, 490, 'images/character/idle/1.png')
 caughtFish = Fish(variables.screenX-100, 500, 'images/fish.png')
 caughtPotato = Potato(variables.screenX-115, 525, 0, 'images/potato.png')
@@ -98,6 +111,8 @@ def initFishing():
     variables.ammo = 5
     variables.fishShot = False; variables.potatoCollected = False
     variables.talkStatus = "intro"
+    variables.potatoTimerBegin = 0; variables.potatoTimerEnd = 0
+    fishList.clear(); potatoList.clear()
     for i in range (0, 5, 1):
         randX = random.randint(0,variables.screenX)
         randY = random.randint(0, 460)
@@ -109,10 +124,8 @@ def spawnPotato(amount):
         randomY = random.randint(-20, 400)
         if(leftRightRandom == 1):
             potatoList.append(Potato(-70, randomY, -2, 'images/potato.png'))
-            print("SPAWN ON LEFT")
         elif(leftRightRandom == 2):
             potatoList.append(Potato(variables.screenX-10, randomY, 2, 'images/potato.png'))
-            print("SPAWN ON RIGHT")
 
 def fishing():
     variables.screen.fill(variables.blue)
@@ -135,7 +148,6 @@ def fishing():
                         variables.tutorialText += 1
                     elif(variables.tutorialText == 4):
                         variables.gordonTalking = False
-                        variables.talkStatus = "potato"
                 elif(variables.talkStatus == "potato"):
                     if(variables.tutorialText < 7):
                         variables.tutorialText += 1
@@ -205,6 +217,7 @@ def fishing():
                 variables.talkStatus = "potato"
                 variables.tutorialText = 5
                 variables.ammo = 0
+                variables.potatoTimerBegin = pygame.time.get_ticks()
                 spawnPotato(3)
 
     # UPDATE GAME STATUS AFTER ALL POTATOES COLLECTED
@@ -279,9 +292,23 @@ def fishing():
 
             if((potato.rect.x < -80) or (potato.rect.x > (variables.screenX+20))):
                 spawnPotato(1)
-                print("SPAWN POTATO")
                 potatoList.remove(potato)
-                print("REMOVE POTATO")
+
+    # DRAW POTATO TIMER & UPDATE
+    if(variables.talkStatus == "potato"):
+        variables.potatoTimerEnd = pygame.time.get_ticks()
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 0) and ((variables.potatoTimerEnd - variables.potatoTimerBegin) <= 1000): # 5
+            variables.screen.blit(timer5, (timer5Rect[0], 20))
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 1000) and ((variables.potatoTimerEnd - variables.potatoTimerBegin) <= 2000): # 4
+            variables.screen.blit(timer4, (timer4Rect[0], 20))
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 2000) and ((variables.potatoTimerEnd - variables.potatoTimerBegin) <= 3000): # 3
+            variables.screen.blit(timer3, (timer3Rect[0], 20))
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 3000) and ((variables.potatoTimerEnd - variables.potatoTimerBegin) <= 4000): # 2
+            variables.screen.blit(timer2, (timer2Rect[0], 20))
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 4000) and ((variables.potatoTimerEnd - variables.potatoTimerBegin) <= 5000): # 1
+            variables.screen.blit(timer1, (timer1Rect[0], 20))
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 5000): # 0
+            variables.screen.blit(timer0, (timer0Rect[0], 20))
 
     # DRAW FISH ON TABLE WHEN CAUGHT
     if(variables.fishShot == True):
