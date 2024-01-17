@@ -57,6 +57,8 @@ potatoTimerBegin = 0
 potatoTimerEnd = 0
 potatoTimer = 5
 
+failSequence = "chicken"
+
 ammo = 5
 
 goingUp = False

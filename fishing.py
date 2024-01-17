@@ -1,6 +1,7 @@
 import pygame
 pygame.font.init()
 import variables
+import fail
 import math
 import random
 
@@ -270,6 +271,8 @@ def fishing():
                     variables.screen.blit(ammoImage, (100, 10))
                     if(variables.ammo > 4):
                         variables.screen.blit(ammoImage, (130, 10))
+    elif(variables.ammo == 0) and (variables.fishShot == False) and (variables.talkStatus == "intro") and (len(bulletList) == 0):
+        variables.gameState = "fail"; fail.initFail()
 
     # DRAW FISH & UPDATE FISH POSITION
     for fish in fishList:
@@ -309,6 +312,8 @@ def fishing():
             variables.screen.blit(timer1, (timer1Rect[0], 20))
         if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 5000): # 0
             variables.screen.blit(timer0, (timer0Rect[0], 20))
+        if((variables.potatoTimerEnd - variables.potatoTimerBegin) >= 6000): # lose
+            variables.gameState = "fail"; fail.initFail()
 
     # DRAW FISH ON TABLE WHEN CAUGHT
     if(variables.fishShot == True):

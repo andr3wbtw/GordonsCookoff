@@ -7,6 +7,7 @@ import menu
 import tutorial
 import variables
 import fishing
+import fail
 
 def main():
     ### MAIN GAME LOOP ###
@@ -28,6 +29,9 @@ def main():
 
         if variables.gameState == "fishing":
             fishing.fishing()
+
+        if variables.gameState == "fail":
+            fail.fail()
 
         variables.timer+= 1 # tick the timer
 
