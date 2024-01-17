@@ -48,9 +48,11 @@ end = start
 bulletSpeed = 2
 
 speed = 1
-fishSpeed = 3
+fishSpeed = 10 #3 before
 fishShot = False
 talkStatus = "intro"
+
+potatoCollected = False
 
 ammo = 5
 
