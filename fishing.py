@@ -2,6 +2,7 @@ import pygame
 pygame.font.init()
 import variables
 import fail
+import steakCooking
 import math
 import random
 
@@ -65,6 +66,17 @@ class Potato(pygame.sprite.Sprite):
     def move(self):
         self.rect.x = self.rect.x - self.speed
 
+class FishAndChips(pygame.sprite.Sprite):
+    def __init__(self, dx, dy, filename):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = pygame.image.load(filename).convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = dx
+        self.rect.y = dy
+    def draw(self, screen):
+        screen.blit(self.image, (self.rect.x, self.rect.y))
+
 
 grassImage = pygame.image.load('images/grass.png')
 waterImage = pygame.image.load('images/water.png')
@@ -73,7 +85,6 @@ ammoImage = pygame.image.load('images/ammo.png')
 tableImage = pygame.image.load('images/table.png')
 
 gordonPixelImage = pygame.image.load('images/gordPixels.png')
-gordonPixelImageRect = gordonPixelImage.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
 tutorialText1 = variables.talkingFont.render("Your first challenge is to make fish and chips..", True, variables.black)
 tutorialText2 = variables.talkingFont.render("I want you to catch a fresh fish from the ocean..", True, variables.black)
@@ -83,6 +94,9 @@ tutorialText4 = variables.talkingFont.render("Be careful, you have limited bulle
 tutorialText5 = variables.talkingFont.render("Great job catching the fish..", True, variables.black)
 tutorialText6 = variables.talkingFont.render("Now you have to cut the potatoes..", True, variables.black)
 tutorialText7 = variables.talkingFont.render("Click to cut the potatoes.", True, variables.black)
+
+tutorialText8 = variables.talkingFont.render("Amazing! Collect the fish and chips to continue.", True, variables.black)
+tutorialText9 = variables.talkingFont.render("Click to cut the potatoes.", True, variables.black)
 
 timer5 = variables.tastyBoldFont.render("5", True, variables.black)
 timer5Rect = timer5.get_rect(center=(variables.screenX/2, variables.screenY/2))
@@ -100,6 +114,7 @@ timer0Rect = timer0.get_rect(center=(variables.screenX/2, variables.screenY/2))
 player = Player(200, 490, 'images/character/idle/1.png')
 caughtFish = Fish(variables.screenX-100, 500, 'images/fish.png')
 caughtPotato = Potato(variables.screenX-115, 525, 0, 'images/potato.png')
+fishAndChips = FishAndChips(variables.screenX-220, 500, 'images/fishandchips.png')
 
 # SHOOTING VARIABLES
 bulletList = []
@@ -223,7 +238,7 @@ def fishing():
 
     # UPDATE GAME STATUS AFTER ALL POTATOES COLLECTED
     if(variables.talkStatus == "potato") and (len(potatoList) == 0):
-        variables.potatoCollected = True; variables.talkStatus = "done"
+        variables.potatoCollected = True; variables.talkStatus = "done"; variables.gordonTalking = True
 
     # DRAW WATER AND GRASS
     for y in range(0, variables.screenY, 16):
@@ -253,6 +268,8 @@ def fishing():
                 variables.screen.blit(tutorialText6, (160, 600))
             elif(variables.tutorialText == 7):
                 variables.screen.blit(tutorialText7, (160, 600))
+        elif(variables.talkStatus == "done"):
+            variables.screen.blit(tutorialText8, (160, 600))
     
     # DRAW BULLETS
     for pos_x, pos_y, speed_x, speed_y in bulletList:
@@ -322,5 +339,12 @@ def fishing():
     if(variables.potatoCollected == True):
         variables.screen.blit(tableImage, (variables.screenX-100, 560))
         caughtPotato.draw(variables.screen)
+
+    # DRAW FISH AND CHIPS AND COLLISION DETECTION
+    if(variables.talkStatus == "done"):
+        fishAndChips.draw(variables.screen)
+        if pygame.sprite.collide_rect(player, fishAndChips):
+            steakCooking.initSteakCooking()
+            variables.gameState = "steak"
 
     player.draw(variables.screen)

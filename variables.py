@@ -57,6 +57,10 @@ potatoTimerBegin = 0
 potatoTimerEnd = 0
 potatoTimer = 5
 
+fireDirection = "right"
+fireSpeed = -3
+fireX = 0
+
 failSequence = "chicken"
 
 ammo = 5

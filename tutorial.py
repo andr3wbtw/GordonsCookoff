@@ -48,7 +48,7 @@ tree1 = pygame.image.load('images/Tree1.png')
 tree2 = pygame.image.load('images/Tree2.png')
 
 tutorialText = ["Welcome to my cookoff!", "Use WASD to move" "Good luck!"]
-tutorialText1 = variables.talkingFont.render("(Press space to continue..)", True, variables.white)
+tutorialText1 = variables.talkingFont.render("(Press space to continue conversation)", True, variables.white)
 tutorialText2 = variables.talkingFont.render("Welcome to my cookoff..", True, variables.white)
 tutorialText3 = variables.talkingFont.render("Use WASD to move..", True, variables.white)
 tutorialText4 = variables.talkingFont.render("I have three cooking challenges for you..", True, variables.white)
