@@ -9,6 +9,7 @@ import variables
 import fishing
 import fail
 import steakCooking
+import chicken
 
 def main():
     ### MAIN GAME LOOP ###
@@ -36,6 +37,9 @@ def main():
 
         if variables.gameState == "steak":
             steakCooking.steakCooking()
+
+        if variables.gameState == "chicken":
+            chicken.chicken()
 
         variables.timer+= 1 # tick the timer
 

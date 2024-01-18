@@ -58,8 +58,10 @@ potatoTimerEnd = 0
 potatoTimer = 5
 
 fireDirection = "right"
-fireSpeed = -3
+fireSpeed = -8
 fireX = 0
+
+steaksCooked = 0
 steakDetection = False
 
 failSequence = "chicken"
