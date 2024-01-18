@@ -35,10 +35,15 @@ def steakCooking():
                     fireImageRect = fireImage.get_rect()
                     fireImageRect.x = variables.fireX
                     fireImageRect.y = 245
-                    if fireImageRect.colliderect(middleRect) and (variables.steaksCooked <= 3):
+                    if fireImageRect.colliderect(middleRect) and (variables.steaksCooked <= 3) and (variables.talkStatus == "intro"):
                         variables.steaksCooked += 1
                         variables.fireSpeed -= 6
                         print("STEAK CORRECTLY COOKED")
+                    else:
+                        if(variables.talkStatus == "intro"):
+                            fail.initFail()
+                            variables.gameState = "fail"
+                            print("STEAK IS NOT COOKED PROPERLY")
                 if(variables.talkStatus == "intro"):
                     if(variables.tutorialText < 2):
                         variables.tutorialText += 1
