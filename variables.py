@@ -60,6 +60,7 @@ potatoTimer = 5
 fireDirection = "right"
 fireSpeed = -3
 fireX = 0
+steakDetection = False
 
 failSequence = "chicken"
 

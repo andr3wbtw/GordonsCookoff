@@ -15,7 +15,7 @@ tutorialText1 = variables.talkingFont.render("Your next challenge is to cook som
 tutorialText2 = variables.talkingFont.render("Press space bar when the temperature is in the middle!", True, variables.black)
 
 def initSteakCooking():
-    variables.gordonTalking = True; variables.tutorialText = 1; variables.talkStatus = "intro"
+    variables.gordonTalking = True; variables.tutorialText = 1; variables.talkStatus = "intro"; variables.steakDetection = False
     variables.fireX = fireImageRect[0]
     print("initialized steak cooking")
 
@@ -26,11 +26,21 @@ def steakCooking():
     # SPACE DETECTION
     if variables.ev.type == pygame.KEYUP:
             if variables.ev.key == pygame.K_SPACE:
+                if(variables.steakDetection == True):
+                    fireImageRect = fireImage.get_rect()
+                    fireImageRect.x = variables.fireX
+                    fireImageRect.y = 245
+                    print(fireImageRect, middleRect)
+                    if fireImageRect.colliderect(middleRect):
+                        print("GOT IT") # ADD MORE HERE
                 if(variables.talkStatus == "intro"):
                     if(variables.tutorialText < 2):
                         variables.tutorialText += 1
                     elif(variables.tutorialText == 2):
                         variables.gordonTalking = False
+                        variables.steakDetection = True
+    
+    # ENABLE STEAK RECTANGLE TRACKING
 
     # FIRE MOVEMENT & EDGE DETECTION
     if variables.talkStatus == "intro":
