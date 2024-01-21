@@ -22,6 +22,7 @@ tutorialText3 = variables.talkingFont.render("Impressive.. onto my last challeng
 def initSteakCooking():
     variables.gordonTalking = True; variables.tutorialText = 1; variables.talkStatus = "intro"; variables.steakDetection = False
     variables.steaksCooked = 0; variables.fireX = fireImageRect[0]
+    variables.fireSpeed = -8; variables.fireX = 0
     print("initialized steak cooking")
 
 def steakCooking():

@@ -128,6 +128,7 @@ def initFishing():
     variables.fishShot = False; variables.potatoCollected = False
     variables.talkStatus = "intro"
     variables.potatoTimerBegin = 0; variables.potatoTimerEnd = 0
+    player.rect.x = 200; player.rect.y = 490
     fishList.clear(); potatoList.clear()
     for i in range (0, 5, 1):
         randX = random.randint(0,variables.screenX)

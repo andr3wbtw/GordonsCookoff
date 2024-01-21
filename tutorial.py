@@ -59,8 +59,14 @@ player = Player(200, 200, 'images/character/idle/1.png')
 beef = BeefWellington(700, 300, 'images/beefwellington.png')
 
 def initTutorial():
+    variables.goingUp = False
+    variables.goingDown = False
+    variables.goingRight = False
+    variables.goingLeft = False
     variables.gordonTalking = True
     variables.tutorialText = 1
+    player.rect.x = 200
+    player.rect.y = 200
 
 def tutorial():
     variables.screen.fill(variables.blue)
