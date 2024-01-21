@@ -165,11 +165,14 @@ def fishing():
                         variables.tutorialText += 1
                     elif(variables.tutorialText == 4):
                         variables.gordonTalking = False
-                elif(variables.talkStatus == "potato"):
+                elif(variables.talkStatus == "prepotato"):
                     if(variables.tutorialText < 7):
                         variables.tutorialText += 1
                     elif(variables.tutorialText == 7):
+                        variables.talkStatus = "potato"
                         variables.gordonTalking = False
+                        variables.potatoTimerBegin = pygame.time.get_ticks()
+                        spawnPotato(3)
 
     # MOVEMENT DETECTION (START)
     if variables.ev.type == pygame.KEYDOWN:
@@ -231,11 +234,9 @@ def fishing():
                 fishList.clear()
                 variables.fishShot = True
                 variables.gordonTalking = True
-                variables.talkStatus = "potato"
+                variables.talkStatus = "prepotato"
                 variables.tutorialText = 5
                 variables.ammo = 0
-                variables.potatoTimerBegin = pygame.time.get_ticks()
-                spawnPotato(3)
 
     # UPDATE GAME STATUS AFTER ALL POTATOES COLLECTED
     if(variables.talkStatus == "potato") and (len(potatoList) == 0):
@@ -262,7 +263,7 @@ def fishing():
                 variables.screen.blit(tutorialText3, (160, 600))
             elif(variables.tutorialText == 4):
                 variables.screen.blit(tutorialText4, (160, 600))
-        elif(variables.talkStatus == "potato"):
+        elif(variables.talkStatus == "prepotato"):
             if(variables.tutorialText == 5):
                 variables.screen.blit(tutorialText5, (160, 600))
             elif(variables.tutorialText == 6):
