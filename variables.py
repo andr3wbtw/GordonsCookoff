@@ -61,6 +61,10 @@ fireDirection = "right"
 fireSpeed = -8
 fireX = 0
 
+bucketX = 0
+bucketSpeed = -4
+bucketDirection = "none"
+
 steaksCooked = 0
 steakDetection = False
 

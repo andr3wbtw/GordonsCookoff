@@ -2,6 +2,7 @@ import pygame
 pygame.font.init()
 import variables
 import fail
+import chicken
 import math
 import random
 
@@ -57,6 +58,7 @@ def steakCooking():
                         variables.tutorialText += 1
                     if(variables.tutorialText == 4):
                         variables.gordonTalking = False
+                        chicken.initChicken()
                         variables.gameState = "chicken"
     
     # ENABLE STEAK RECTANGLE TRACKING
