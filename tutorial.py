@@ -11,6 +11,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = dx
         self.rect.y = dy
+        self.left = pygame.image.load('images/character/idle/1L.png').convert_alpha()
+        self.right = pygame.image.load('images/character/idle/1R.png').convert_alpha()
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
     def moveUp(self):
@@ -22,9 +24,11 @@ class Player(pygame.sprite.Sprite):
     def moveRight(self):
         if(self.rect.x <= 1216):
             self.rect.x = self.rect.x + variables.speed
+        self.image = self.right
     def moveLeft(self):
         if(self.rect.x >= -17):
             self.rect.x = self.rect.x - variables.speed
+        self.image = self.left
 
 class BeefWellington(pygame.sprite.Sprite):
     def __init__(self, dx, dy, filename):
@@ -40,7 +44,7 @@ class BeefWellington(pygame.sprite.Sprite):
 gordonPixelImage = pygame.image.load('images/gordPixels.png')
 gordonPixelImageRect = gordonPixelImage.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
-characterImage = pygame.image.load('images/character/idle/1.png')
+characterImage = pygame.image.load('images/character/idle/1R.png')
 
 grassImage = pygame.image.load('images/grass.png')
 
@@ -55,7 +59,7 @@ tutorialText4 = variables.talkingFont.render("I have three cooking challenges fo
 tutorialText5 = variables.talkingFont.render("Collect my Beef Wellington to begin..", True, variables.white)
 tutorialText6 = variables.talkingFont.render("Don't disappoint me.", True, variables.white)
 
-player = Player(200, 200, 'images/character/idle/1.png')
+player = Player(200, 200, 'images/character/idle/1R.png')
 beef = BeefWellington(700, 300, 'images/beefwellington.png')
 
 powerupSound = pygame.mixer.Sound("sounds/powerupSound.wav")

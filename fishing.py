@@ -14,6 +14,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = dx
         self.rect.y = dy
+        self.left = pygame.image.load('images/character/idle/1L.png').convert_alpha()
+        self.right = pygame.image.load('images/character/idle/1R.png').convert_alpha()
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
     def moveUp(self):
@@ -25,9 +27,11 @@ class Player(pygame.sprite.Sprite):
     def moveRight(self):
         if(self.rect.x <= 1233):
             self.rect.x = self.rect.x + variables.speed
+        self.image = self.right
     def moveLeft(self):
         if(self.rect.x >= -34):
             self.rect.x = self.rect.x - variables.speed
+        self.image = self.left
 
 class Fish(pygame.sprite.Sprite):
     def __init__(self, dx, dy, filename):
@@ -111,7 +115,7 @@ timer1Rect = timer1.get_rect(center=(variables.screenX/2, variables.screenY/2))
 timer0 = variables.tastyBoldFont.render("0", True, variables.black)
 timer0Rect = timer0.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
-player = Player(200, 490, 'images/character/idle/1.png')
+player = Player(200, 490, 'images/character/idle/1R.png')
 caughtFish = Fish(variables.screenX-100, 500, 'images/fish.png')
 caughtPotato = Potato(variables.screenX-115, 525, 0, 'images/potato.png')
 fishAndChips = FishAndChips(variables.screenX-220, 500, 'images/fishandchips.png')
