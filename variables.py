@@ -39,6 +39,8 @@ tutorialText = 1
 screenX = 1280
 screenY = 680
 screen = pygame.display.set_mode((screenX, screenY))
+scrollingTimer = 0
+currentScrolling = 1
 
 mouse = pygame.mouse.get_pos() # track mouse X and Y position
 mouseX = mouse[0]
