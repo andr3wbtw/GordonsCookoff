@@ -134,6 +134,7 @@ def initFishing():
         randX = random.randint(0,variables.screenX)
         randY = random.randint(0, 460)
         fishList.append(Fish(randX, randY, 'images/fish.png'))
+    print("initialized fishing")
 
 def spawnPotato(amount):
     for i in range (0, amount, 1):

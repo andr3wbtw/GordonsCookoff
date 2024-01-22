@@ -30,6 +30,20 @@ def steakCooking():
     middleRect = pygame.draw.rect(variables.screen, variables.red, (variables.screenX/2-60, 265, 120, 120)) # INVISIBLE RECTANGLE FOR COLLISION DETECTION # INVISIBLE RECTANGLE FOR COLLISION DETECTION
     variables.screen.blit(kitchenImage, (0,0))
 
+# STEAK ICON DRAW & LOGIC
+    variables.screen.blit(steakTransparentImage, (steakImageRect[0]-150, 20))
+    variables.screen.blit(steakTransparentImage, (steakImageRect[0], 20))
+    variables.screen.blit(steakTransparentImage, (steakImageRect[0]+150, 20))
+    if(variables.steakDetection == True):
+        if(variables.steaksCooked >=1):
+            variables.screen.blit(steakImage, (steakImageRect[0]+150, 20))
+            if(variables.steaksCooked >=2):
+                variables.screen.blit(steakImage, (steakImageRect[0], 20))
+                if(variables.steaksCooked >= 3):
+                    variables.screen.blit(steakImage, (steakImageRect[0]-150, 20))
+                    variables.fireSpeed = 0
+                    variables.gordonTalking = True; variables.talkStatus = "done"
+
     # SPACE DETECTION
     if variables.ev.type == pygame.KEYUP:
             if variables.ev.key == pygame.K_SPACE:
@@ -85,20 +99,6 @@ def steakCooking():
         elif(variables.talkStatus == "done"):
             if(variables.tutorialText == 3):
                 variables.screen.blit(tutorialText3, (160, 600))
-
-    # STEAK ICON DRAW & LOGIC
-    variables.screen.blit(steakTransparentImage, (steakImageRect[0]-150, 20))
-    variables.screen.blit(steakTransparentImage, (steakImageRect[0], 20))
-    variables.screen.blit(steakTransparentImage, (steakImageRect[0]+150, 20))
-    if(variables.steakDetection == True):
-        if(variables.steaksCooked >=1):
-            variables.screen.blit(steakImage, (steakImageRect[0]+150, 20))
-            if(variables.steaksCooked >=2):
-                variables.screen.blit(steakImage, (steakImageRect[0], 20))
-                if(variables.steaksCooked >= 3):
-                    variables.screen.blit(steakImage, (steakImageRect[0]-150, 20))
-                    variables.fireSpeed = 0
-                    variables.gordonTalking = True; variables.talkStatus = "done"
 
     pygame.draw.rect(variables.screen, (variables.black), pygame.Rect(0, 280, variables.screenX, 100),  10, 30)
     pygame.draw.circle(variables.screen, variables.black, (variables.screenX/2, 325), 60)

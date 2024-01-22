@@ -62,7 +62,7 @@ fireSpeed = -8
 fireX = 0
 
 bucketX = 0
-bucketSpeed = -4
+bucketSpeed = -6
 bucketDirection = "none"
 
 steaksCooked = 0

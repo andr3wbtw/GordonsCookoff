@@ -67,6 +67,7 @@ def initTutorial():
     variables.tutorialText = 1
     player.rect.x = 200
     player.rect.y = 200
+    print("initialized tutorial")
 
 def tutorial():
     variables.screen.fill(variables.blue)
