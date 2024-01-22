@@ -20,6 +20,7 @@ white = pygame.Color(255,255,255)
 red = pygame.Color(255,0,0)
 blue = pygame.Color(0,0,255)
 brown = pygame.Color(26,15,6)
+gold = pygame.Color(240,200,43)
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # Fonts #
 tastyFont = pygame.font.Font('fonts/TastyFood.otf',100)

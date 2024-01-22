@@ -58,6 +58,8 @@ tutorialText6 = variables.talkingFont.render("Don't disappoint me.", True, varia
 player = Player(200, 200, 'images/character/idle/1.png')
 beef = BeefWellington(700, 300, 'images/beefwellington.png')
 
+powerupSound = pygame.mixer.Sound("sounds/powerupSound.wav")
+
 def initTutorial():
     variables.goingUp = False
     variables.goingDown = False
@@ -115,6 +117,7 @@ def tutorial():
     if pygame.sprite.collide_rect(player, beef):
         fishing.initFishing()
         variables.gameState = "fishing"
+        powerupSound.play()
 
     # DRAW GRASS
     for y in range(0, variables.screenY, 16):

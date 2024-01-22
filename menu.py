@@ -12,10 +12,13 @@ gordonImageRect = gordonImage.get_rect(center=(variables.screenX/2, variables.sc
 clickToPlayText = variables.crispyFoodFont.render("Click to Play", True, variables.white)
 clickToPlayTextRect = clickToPlayText.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
+tutorialSound = pygame.mixer.Sound("sounds/tutorialSound.wav")
+
 def menu():
     if variables.ev.type == pygame.MOUSEBUTTONUP:
                 tutorial.initTutorial()
                 variables.gameState = "tutorial"
+                tutorialSound.play()
 
     variables.screen.fill(variables.brown)
     variables.screen.blit(titleText, (titleTextRect[0], 120))

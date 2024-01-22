@@ -20,6 +20,9 @@ tutorialText1 = variables.talkingFont.render("Your next challenge is to cook som
 tutorialText2 = variables.talkingFont.render("Press space bar when the temperature is in the middle!", True, variables.black)
 tutorialText3 = variables.talkingFont.render("Impressive.. onto my last challenge.", True, variables.black)
 
+igniteSound = pygame.mixer.Sound("sounds/igniteSound.wav")
+powerupSound = pygame.mixer.Sound("sounds/powerupSound.wav")
+
 def initSteakCooking():
     variables.gordonTalking = True; variables.tutorialText = 1; variables.talkStatus = "intro"; variables.steakDetection = False
     variables.steaksCooked = 0; variables.fireX = fireImageRect[0]
@@ -55,11 +58,13 @@ def steakCooking():
                         variables.steaksCooked += 1
                         variables.fireSpeed -= 6
                         print("STEAK CORRECTLY COOKED")
+                        igniteSound.play()
                     else:
                         if(variables.talkStatus == "intro"):
                             fail.initFail()
                             variables.gameState = "fail"
                             print("STEAK IS NOT COOKED PROPERLY")
+                            igniteSound.play()
                 if(variables.talkStatus == "intro"):
                     if(variables.tutorialText < 2):
                         variables.tutorialText += 1
@@ -74,6 +79,7 @@ def steakCooking():
                         variables.gordonTalking = False
                         chicken.initChicken()
                         variables.gameState = "chicken"
+                        powerupSound.play()
     
     # ENABLE STEAK RECTANGLE TRACKING
 

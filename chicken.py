@@ -2,8 +2,8 @@ import pygame
 pygame.font.init()
 import variables
 import fail
-import math
 import random
+import win
 
 gordonPixelImage = pygame.image.load('images/gordPixels.png')
 tutorialText1 = variables.talkingFont.render("Finally, it's time to make some chicken..", True, variables.black)
@@ -18,6 +18,9 @@ bucketImageRect = bucketImage.get_rect(center=(variables.screenX/2, variables.sc
 
 chickenImage = pygame.image.load('images/chickenFall.png')
 chickenEvilImage = pygame.image.load('images/chickenFallEvil.png')
+
+chickenFallSound = pygame.mixer.Sound("sounds/chickenFallSound.wav")
+creeperSound = pygame.mixer.Sound("sounds/creeperSound.wav")
 
 chickenList = []
 
@@ -40,7 +43,7 @@ def initChicken():
     variables.gordonTalking = True; variables.talkStatus = "intro"; variables.tutorialText = 1
     variables.bucketX = bucketImageRect[0]
     variables.bucketDirection = "none"
-    variables.chickensCaught = 0
+    variables.chickensCaught = 0; chickenList.clear()
     print("initialized chicken")
 
 def spawnChicken(amount):
@@ -50,8 +53,10 @@ def spawnChicken(amount):
         randomSpeed = random.randint(2, 3)
         if(evilNiceRandom == 1):
             chickenList.append(Chicken(randomX, -40, randomSpeed, "nice", 'images/chickenFall.png')) # NICE SPAWN
+            chickenFallSound.play()
         elif(evilNiceRandom == 2):
             chickenList.append(Chicken(randomX, -40, randomSpeed, "evil", 'images/chickenFallEvil.png')) # EVIL SPAWN
+            creeperSound.play()
 
 def chicken():
     variables.screen.blit(chickenBackgroundImage, (0,0))
@@ -98,6 +103,11 @@ def chicken():
                     print("BAD CHICKEN")
                     fail.initFail()
                     variables.gameState = "fail"
+
+    # 5 CHICKEN WIN DETECTION
+    if(variables.chickensCaught == 5):
+        win.initWin()
+        variables.gameState = "win"
 
     # GORDON TALKING SEQUENCE
     if(variables.gordonTalking == True):

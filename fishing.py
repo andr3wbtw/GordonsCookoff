@@ -116,6 +116,10 @@ caughtFish = Fish(variables.screenX-100, 500, 'images/fish.png')
 caughtPotato = Potato(variables.screenX-115, 525, 0, 'images/potato.png')
 fishAndChips = FishAndChips(variables.screenX-220, 500, 'images/fishandchips.png')
 
+shootSound = pygame.mixer.Sound("sounds/shootSound.wav")
+chopSound = pygame.mixer.Sound("sounds/chopSound.wav")
+powerupSound = pygame.mixer.Sound("sounds/powerupSound.wav")
+
 # SHOOTING VARIABLES
 bulletList = []
 fishList = []
@@ -201,6 +205,7 @@ def fishing():
         if(variables.talkStatus == "intro"):
             variables.gordonTalking = False
             if(variables.ammo > 0) and (pygame.mouse.get_pressed()[0]):
+                shootSound.play()
                 variables.ammo -= 1
 
                 mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -215,6 +220,7 @@ def fishing():
                 
                 bulletList.append([player.rect.x + 40, player.rect.y + 30, speed_x, speed_y])
         elif(variables.talkStatus == "potato"):
+            chopSound.play()
             variables.gordonTalking = False
             mouseX, mouseY = pygame.mouse.get_pos()
             for potato in potatoList:
@@ -349,5 +355,6 @@ def fishing():
         if pygame.sprite.collide_rect(player, fishAndChips):
             steakCooking.initSteakCooking()
             variables.gameState = "steak"
+            powerupSound.play()
 
     player.draw(variables.screen)

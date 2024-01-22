@@ -34,6 +34,7 @@ def fail():
     if variables.ev.type == pygame.MOUSEBUTTONUP:
                 tutorial.initTutorial()
                 variables.gameState = "tutorial"
+                pygame.mixer.Sound.stop(chickenSound); pygame.mixer.Sound.stop(donkeySound); pygame.mixer.Sound.stop(madSound); # stop all sounds
 
     if(variables.failSequence == "chicken"):
         variables.screen.blit(chickenImage, (0,0))

@@ -1,6 +1,4 @@
 import pygame
-import os
-import random
 from pygame.locals import*
 
 import menu
@@ -10,6 +8,7 @@ import fishing
 import fail
 import steakCooking
 import chicken
+import win
 
 def main():
     ### MAIN GAME LOOP ###
@@ -40,6 +39,9 @@ def main():
 
         if variables.gameState == "chicken":
             chicken.chicken()
+
+        if variables.gameState == "win":
+            win.win()
 
         variables.timer+= 1 # tick the timer
 
