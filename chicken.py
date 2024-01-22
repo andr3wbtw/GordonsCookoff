@@ -40,6 +40,7 @@ def initChicken():
     variables.gordonTalking = True; variables.talkStatus = "intro"; variables.tutorialText = 1
     variables.bucketX = bucketImageRect[0]
     variables.bucketDirection = "none"
+    variables.chickensCaught = 0
     print("initialized chicken")
 
 def spawnChicken(amount):
@@ -83,9 +84,20 @@ def chicken():
             chicken.move()
             chicken.draw(variables.screen)
 
-            if(chicken.rect.y > variables.screenY-120):
+            if(chicken.rect.y > variables.screenY-120): # remove chicken if touches ground
                 spawnChicken(1)
                 chickenList.remove(chicken)
+
+            if pygame.Rect.collidepoint(chicken.rect, variables.bucketX+60, 540): # bucket-chicken collision
+                chickenList.remove(chicken)
+                spawnChicken(1)
+                if(chicken.status == "nice"):
+                    print("NICE CHICKEN")
+                    variables.chickensCaught += 1
+                elif(chicken.status == "evil"):
+                    print("BAD CHICKEN")
+                    fail.initFail()
+                    variables.gameState = "fail"
 
     # GORDON TALKING SEQUENCE
     if(variables.gordonTalking == True):

@@ -65,6 +65,8 @@ bucketX = 0
 bucketSpeed = -6
 bucketDirection = "none"
 
+chickensCaught = 0
+
 steaksCooked = 0
 steakDetection = False
 
