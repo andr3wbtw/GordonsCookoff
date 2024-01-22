@@ -10,6 +10,9 @@ import steakCooking
 import chicken
 import win
 
+pygame.mixer.music.load('sounds/music.wav')
+pygame.mixer.music.play()
+
 def main():
     ### MAIN GAME LOOP ###
     while True:
