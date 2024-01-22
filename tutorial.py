@@ -65,6 +65,7 @@ beef = BeefWellington(700, 300, 'images/beefwellington.png')
 powerupSound = pygame.mixer.Sound("sounds/powerupSound.wav")
 
 def initTutorial():
+    pygame.display.set_caption("Gordon's Cookoff")
     variables.goingUp = False
     variables.goingDown = False
     variables.goingRight = False

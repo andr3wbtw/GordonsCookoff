@@ -130,6 +130,7 @@ fishList = []
 potatoList = []
 
 def initFishing():
+    pygame.display.set_caption("Gordon's Cookoff - Game")
     variables.gordonTalking = True
     variables.tutorialText = 1
     variables.ammo = 5

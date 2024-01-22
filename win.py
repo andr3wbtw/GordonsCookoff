@@ -10,6 +10,7 @@ clickToPlayAgain = variables.crispyFoodFont.render("Click to Play Again", True, 
 clickToPlayAgainRect = clickToPlayAgain.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
 def initWin():
+    pygame.display.set_caption("Gordon's Cookoff - Win")
     pygame.mixer.Sound.play(winSound)
     print("initialized win state")
 

@@ -25,6 +25,7 @@ clickToRestart = variables.crispyFoodFont.render("Click to Restart", True, varia
 clickToRestartRect = clickToRestart.get_rect(center=(variables.screenX/2, variables.screenY/2))
 
 def initFail():
+    pygame.display.set_caption("Gordon's Cookoff - Lose")
     rareRoll = random.randint(1,5)
     if(rareRoll != 5):
         ranNum = random.randint(1,5)
