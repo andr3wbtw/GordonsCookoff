@@ -3,8 +3,6 @@ pygame.font.init()
 import variables
 import fail
 import chicken
-import math
-import random
 
 kitchenImage = pygame.image.load('images/kitchen.png')
 gordonPixelImage = pygame.image.load('images/gordPixels.png')
