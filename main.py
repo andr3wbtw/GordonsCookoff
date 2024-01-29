@@ -67,22 +67,22 @@ def main():
         if variables.gameState == "menu": # menu state
             menu.menu()
 
-        if variables.gameState == "tutorial":
+        if variables.gameState == "tutorial": # tutorial state
             tutorial.tutorial()
 
-        if variables.gameState == "fishing":
+        if variables.gameState == "fishing": # fishing state
             fishing.fishing()
 
-        if variables.gameState == "fail":
+        if variables.gameState == "fail": # fail state
             fail.fail()
 
-        if variables.gameState == "steak":
+        if variables.gameState == "steak": # steak cooking state
             steakCooking.steakCooking()
 
-        if variables.gameState == "chicken":
+        if variables.gameState == "chicken": # chicken catch state
             chicken.chicken()
 
-        if variables.gameState == "win":
+        if variables.gameState == "win": # win state
             win.win()
 
         variables.timer+= 1 # tick the timer
